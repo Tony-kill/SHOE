@@ -20,7 +20,7 @@ import {
 import { PlusOutlined, EditOutlined, DeleteOutlined, ThunderboltOutlined, EyeOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
-import { requestCreateFlashSale, requestGetAllFlashSale } from '../../../config/flashSale';
+import { requestCreateFlashSale, requestGetAllFlashSale } from '../../../config/FlashSale';
 import { requestGetAllProduct } from '../../../config/ProductRequest';
 
 const { Title } = Typography;
