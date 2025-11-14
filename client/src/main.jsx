@@ -8,7 +8,8 @@ import { routes } from './routes';
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <Provider>
-            <Router>
+            {/* 👇 THÊM basename="/SHOE" */}
+            <Router basename="/SHOE">
                 <Routes>
                     {routes.map((route, index) => (
                         <Route key={index} path={route.path} element={route.component} />
