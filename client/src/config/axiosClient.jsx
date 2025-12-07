@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { requestRefreshToken } from './UserRequest';
 
 export class ApiClient {
@@ -29,7 +28,9 @@ export class ApiClient {
             (response) => response,
             async (error) => {
                 const originalRequest = error.config;
+
                 if (error.response?.status === 401 && !originalRequest._retry) {
+                    // Nếu FE không coi là đã login thì khỏi refresh, cho về /login
                     if (!this.isLoggedIn()) {
                         this.handleAuthFailure();
                         return Promise.reject(error);
@@ -92,8 +93,9 @@ export class ApiClient {
         });
     }
 
+    // dùng localStorage để đánh dấu trạng thái đăng nhập phía FE
     isLoggedIn() {
-        return Cookies.get('logged') === '1';
+        return localStorage.getItem('logged') === '1';
     }
 
     async logout() {
@@ -101,6 +103,9 @@ export class ApiClient {
             await this.axiosInstance.get('/api/users/logout');
         } catch (error) {
             console.error('Logout error:', error);
+        } finally {
+            // xóa cờ đăng nhập trên FE
+            localStorage.removeItem('logged');
         }
     }
 
