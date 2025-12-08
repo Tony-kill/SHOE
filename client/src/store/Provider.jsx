@@ -1,7 +1,7 @@
 import Context from './Context';
 import CryptoJS from 'crypto-js';
-
-import cookies from 'js-cookie';
+// ❌ bỏ js-cookie vì không dùng nữa
+// import cookies from 'js-cookie';
 import { io } from 'socket.io-client';
 
 import { useEffect, useState, useRef } from 'react';
@@ -76,11 +76,13 @@ export function Provider({ children }) {
     };
 
     useEffect(() => {
-        const token = cookies.get('logged');
+        // Dùng localStorage để kiểm tra trạng thái login phía FE
+        const logged = localStorage.getItem('logged');
 
-        if (!token) {
+        if (logged !== '1') {
             return;
         }
+
         fetchAuth();
         fetchCart();
     }, []);
