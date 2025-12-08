@@ -1,18 +1,29 @@
 import { Menu, Avatar, Badge } from 'antd';
 import { UserOutlined, ShoppingOutlined, LogoutOutlined, CrownOutlined, EyeOutlined } from '@ant-design/icons';
 import { useStore } from '../../../hooks/useStore';
-import Cookies from 'js-cookie';
+// ❌ bỏ js-cookie
+// import Cookies from 'js-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { requestLogout } from '../../../config/UserRequest';
 
 function UserSidebar({ activeKey, onSelect, setActiveKey }) {
     const { dataUser } = useStore();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        // Remove cookie and redirect to login
-        Cookies.remove('logged');
-        navigate('/login');
+    const handleLogout = async () => {
+        try {
+            // Gọi API logout để backend xoá token, refreshToken
+            await requestLogout();
+        } catch (error) {
+            console.error('Logout failed:', error);
+        } finally {
+            // Xoá cờ đăng nhập phía FE
+            localStorage.removeItem('logged');
+            navigate('/login');
+            // Reload lại để header / context reset
+            window.location.reload();
+        }
     };
 
     const { pathname } = useLocation();
@@ -32,8 +43,10 @@ function UserSidebar({ activeKey, onSelect, setActiveKey }) {
             case 'favourite':
                 setActiveKey('favourite');
                 break;
+            default:
+                break;
         }
-    }, [pathname]);
+    }, [pathname, setActiveKey]);
 
     const items = [
         {
