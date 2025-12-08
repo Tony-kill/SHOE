@@ -7,7 +7,8 @@ import PersonalInfo from './components/PersonalInfo';
 import OrderHistory from './components/OrderHistory';
 // import WatchProducts from './components/WatchProducts';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+// ❌ bỏ js-cookie
+// import Cookies from 'js-cookie';
 import { UserOutlined, ShoppingOutlined, HeartOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import Warranty from './components/Warranty';
 import Favourite from './components/Favourite';
@@ -24,8 +25,9 @@ function InfoUser() {
     };
 
     useEffect(() => {
-        const token = Cookies.get('logged');
-        if (!token) {
+        // Kiểm tra trạng thái đăng nhập bằng localStorage
+        const logged = localStorage.getItem('logged');
+        if (logged !== '1') {
             navigate('/login');
         }
     }, [navigate]);
