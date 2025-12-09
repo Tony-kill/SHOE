@@ -39,7 +39,9 @@ function Counpon() {
                         <h4 className="font-semibold text-gray-900 text-base leading-tight">{coupons.nameCoupon}</h4>
 
                         {/* Condition */}
-                        <p className="text-sm text-gray-600">Tối thiểu {Number(coupon.minPrice || 0).toLocaleString('vi-VN')}đ</p>
+                        <p className="text-sm text-gray-600">
+  Tối thiểu {Number(coupon?.minPrice ?? 0).toLocaleString('vi-VN')}đ
+</p>
 
                         {/* Code and Expiry in same line */}
                         <div className="flex items-center space-x-4 text-xs text-gray-500">
