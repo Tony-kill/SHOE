@@ -126,13 +126,21 @@ function Header() {
                             <input
                                 type="text"
                                 placeholder="Tìm kiếm sản phẩm"
-                                className="w-full px-4 py-2 bg-white text-gray-800 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2 bg-white text-gray-800 pr-10  // chừa chỗ cho nút
+                                focus:outline-none focus:ring-2 focus:ring-blue-500
+                                border-none"
                                 value={query}
                                 onChange={handleSearchInputChange}
                                 onFocus={() => query.trim() && setShowResults(true)}
                             />
-                            <button className="absolute right-0 top-0 h-full px-3 bg-[#202020] rounded-r-md hover:bg-gray-700 transition-colors">
-                                <Search className="w-5 h-5 text-white" />
+
+                            <button
+                            type="submit"
+                            className="absolute inset-y-0 right-0 px-3 bg-[#202020]
+                            hover:bg-gray-700 transition-colors
+                            flex items-center justify-center"
+                            >
+                            <Search className="w-5 h-5 text-white" />
                             </button>
 
                             {/* Search Results Dropdown */}
