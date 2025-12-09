@@ -143,16 +143,30 @@ function CouponManagement() {
                 </div>
             ),
         },
+        // {
+        //     title: 'Đơn tối thiểu',
+        //     dataIndex: 'minPrice',
+        //     key: 'minPrice',
+        //     render: (minPrice) => (
+        //         <div className="flex items-center gap-1 font-medium text-green-600">
+        //             <DollarOutlined />
+        //             {minPrice.toLocaleString('vi-VN')}đ
+        //         </div>
+        //     ),
+        // },
         {
             title: 'Đơn tối thiểu',
             dataIndex: 'minPrice',
             key: 'minPrice',
-            render: (minPrice) => (
-                <div className="flex items-center gap-1 font-medium text-green-600">
-                    <DollarOutlined />
-                    {minPrice.toLocaleString('vi-VN')}đ
-                </div>
-            ),
+            render: (minPrice) => {
+                const value = Number(minPrice) || 0; // ép về số, tránh null/undefined
+                return (
+                    <div className="flex items-center gap-1 font-medium text-green-600">
+                        <DollarOutlined />
+                        {value.toLocaleString('vi-VN')}đ
+                    </div>
+                );
+            },
         },
         {
             title: 'Thao tác',
